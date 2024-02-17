@@ -1,17 +1,21 @@
 # for windows
 
-SRC = $(wildcard ./src/*.c)
-HDR = $(wildcard ./src/*.h)
 
 ifeq ($(OS), windows)
-	LIBS = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image
-	CFLAGS = -Wall -g -std=c99
+	OUT=./build/windows/tetris
+	SDL2 = $(shell /home/autumn/Desktop/SDL/SDL2/bin/sdl2-config --static-libs --cflags)
+	SDL2_IMAGE = -L/home/autumn/Desktop/SDL/SDL_Image/lib /home/autumn/Desktop/SDL/SDL_Image/lib/libSDL2_image.a
 	CC = x86_64-w64-mingw32-gcc
 else
-	LIBS = -lSDL2 -lSDL2_image
-	CFLAGS = -Wall -g -std=c99
+	OUT=./build/linux/tetris
+	SDL2 = $(shell sdl2-config --libs --cflags)
+	SDL2_IMAGE = -lSDL2_image
 	CC = gcc
 endif
 
 all:
-	$(CC) $(SRC) $(CFLAGS) $(LIBS) -o ./build/tetris
+	$(CC) -o $(OUT) ./src/*.c $(SDL2) $(SDL2_IMAGE)
+
+clean:
+	rm -f ./*.o
+	rm -f ./build/tetris

@@ -1,12 +1,17 @@
 #include "init.h"
 #include "structs.h"
-#include <SDL2/SDL.h>
+
+#ifdef _WIN32
+#include <SDL_error.h>
+#include <SDL_log.h>
+#include <SDL_stdinc.h>
+#include <SDL_image.h>
+#else
 #include <SDL2/SDL_error.h>
 #include <SDL2/SDL_log.h>
-#include <SDL2/SDL_render.h>
 #include <SDL2/SDL_stdinc.h>
-#include <SDL2/SDL_video.h>
 #include <SDL2/SDL_image.h>
+#endif
 
 int initSdl(App *app) {
 

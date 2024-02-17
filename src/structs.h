@@ -1,9 +1,16 @@
 #ifndef STRUCTS_H
 #define STRUCTS_H
 
+// if windows
+#ifdef _WIN32
+#include <SDL.h>
+#include <SDL_render.h>
+#include <SDL_video.h>
+#else
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_video.h>
+#endif
 
 #define WINDOW_WIDTH 815
 #define WINDOW_HEIGHT 610

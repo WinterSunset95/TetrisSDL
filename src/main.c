@@ -2,25 +2,23 @@
 #include "game.h"
 #include "structs.h"
 #include "init.h"
+
+#ifdef _WIN32
+#include <SDL_log.h>
+#include <SDL_timer.h>
+#else
 #include <SDL2/SDL_log.h>
 #include <SDL2/SDL_timer.h>
+#endif
 
 int main(int argc, char *argv[]) {
-
 	int score = 0;
+	int nextTetromino = SQ_BLOCK;
 	App app;
 	Cell grid[GRID_AREA];
 	Tetromino currblock;
 
-	Tetromino tetromino = {
-		(Cell){10,0,1,1},
-		(Cell){11,0,1,1},
-		(Cell){10,1,1,1},
-		(Cell){11,1,1,1},
-		0, SQ_BLOCK
-	};
-
-	currblock = tetromino;
+	makeNewTetromino(&currblock, &nextTetromino);
 
 	// zero out the cells
 	for (int i=0; i<GRID_AREA; i++) {
@@ -52,7 +50,7 @@ int main(int argc, char *argv[]) {
 		} else {
 			// Else, push the tetromino to the grid and make a new one
 			pushTetromino(grid, &currblock);
-			makeNewTetromino(&currblock);
+			makeNewTetromino(&currblock, &nextTetromino);
 		}
 
 		// Render the current tetromino
@@ -61,7 +59,9 @@ int main(int argc, char *argv[]) {
 		renderGame(&app);
 		SDL_Delay(100);
 	}
-	
+
 	closeSdl(&app);
 	return 0;
 }
+
+

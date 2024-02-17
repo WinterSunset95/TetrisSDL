@@ -9,9 +9,16 @@
 #include "assets/yellow.xpm"
 #include "assets/cyan.xpm"
 #include "assets/pink.xpm"
+
+#ifdef _WIN32
+#include <SDL_events.h>
+#include <SDL_keycode.h>
+#include <SDL_log.h>
+#else
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_keycode.h>
 #include <SDL2/SDL_log.h>
+#endif
 
 // Lets define some tetrominos here
 Tetromino sqBlock = {
@@ -166,10 +173,11 @@ int renderBlock(App *app, Tetromino *currblock) {
 	return 0;
 }
 
-int makeNewTetromino(Tetromino *currblock) {
+int makeNewTetromino(Tetromino *currblock, int *nextTetromino) {
 	// Get a random number from 0 to 6
+	*currblock = *tetrominos[*nextTetromino];
 	int r = rand() % 7;
-	*currblock = *tetrominos[r];
+	*nextTetromino = r;
 
 	return 0;
 }
