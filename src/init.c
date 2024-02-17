@@ -36,6 +36,7 @@ int initSdl(App *app) {
 	}
 
 	return 0;
+
 }
 
 int closeSdl(App *app) {

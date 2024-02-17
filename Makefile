@@ -1,6 +1,3 @@
-# for windows
-
-
 ifeq ($(OS), windows)
 	OUT=./build/windows/tetris
 	SDL2 = $(shell /home/autumn/Desktop/SDL/SDL2/bin/sdl2-config --static-libs --cflags)
@@ -15,7 +12,3 @@ endif
 
 all:
 	$(CC) -o $(OUT) ./src/*.c $(SDL2) $(SDL2_IMAGE)
-
-clean:
-	rm -f ./*.o
-	rm -f ./build/tetris
